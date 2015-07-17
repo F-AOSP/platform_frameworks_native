@@ -844,6 +844,7 @@ void Layer::setAcquireFence(const sp<const DisplayDevice>& /* hw */,
             }
         }
     }
+    setAcquiredFenceIfBlit(fenceFd, layer);
     layer.setAcquireFenceFd(fenceFd);
 }
 
@@ -934,7 +935,8 @@ void Layer::onDraw(const sp<const DisplayDevice>& hw, const Region& clip,
 
     RenderEngine& engine(mFlinger->getRenderEngine());
 
-    if (!blackOutLayer) {
+    if (!blackOutLayer ||
+            ((hw->getDisplayType() == HWC_DISPLAY_PRIMARY) && canAllowGPUForProtected())) {
         // TODO: we could be more subtle with isFixedSize()
         const bool useFiltering = getFiltering() || needsFiltering(hw) || isFixedSize();
 
