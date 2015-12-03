@@ -35,11 +35,7 @@ LOCAL_SRC_FILES := \
     RenderEngine/GLES10RenderEngine.cpp \
     RenderEngine/GLES11RenderEngine.cpp \
     RenderEngine/GLES20RenderEngine.cpp \
-    DisplayUtils.cpp \
-    ExSurfaceFlinger/ExLayer.cpp \
-    ExSurfaceFlinger/ExSurfaceFlinger.cpp \
-    ExSurfaceFlinger/ExVirtualDisplaySurface.cpp \
-    ExSurfaceFlinger/ExHWComposer.cpp
+    DisplayUtils.cpp
 
 LOCAL_CFLAGS := -DLOG_TAG=\"SurfaceFlinger\"
 
@@ -116,12 +112,15 @@ LOCAL_SHARED_LIBRARIES := \
     libpowermanager
 
 ifeq ($(TARGET_USES_QCOM_BSP), true)
-    LOCAL_WHOLE_STATIC_LIBRARIES += libexsurfaceflinger
-    LOCAL_C_INCLUDES += $(ANDROID_BUILD_TOP)/vendor/qcom/opensource/display-frameworks/native/services/surfaceflinger/
     LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc
     LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libqdutils
     LOCAL_SHARED_LIBRARIES += libqdutils
     LOCAL_CFLAGS += -DQTI_BSP
+    LOCAL_SRC_FILES += \
+        ExSurfaceFlinger/ExLayer.cpp \
+        ExSurfaceFlinger/ExSurfaceFlinger.cpp \
+        ExSurfaceFlinger/ExVirtualDisplaySurface.cpp \
+        ExSurfaceFlinger/ExHWComposer.cpp
 endif
 
 LOCAL_MODULE := libsurfaceflinger

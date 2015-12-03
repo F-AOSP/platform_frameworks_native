@@ -39,7 +39,7 @@
 #include "RenderEngine/RenderEngine.h"
 #include "DisplayHardware/FramebufferSurface.h"
 #include "DisplayUtils.h"
-#if QTI_BSP
+#ifdef QTI_BSP
 #include <ExSurfaceFlinger/ExSurfaceFlinger.h>
 #include <ExSurfaceFlinger/ExLayer.h>
 #include <ExSurfaceFlinger/ExHWComposer.h>
